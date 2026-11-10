@@ -12,7 +12,7 @@ from app.config.app_config import EmbeddingConfig,app_config
 class EmbeddingClientManager:
     def __init__(self, embedding_config: EmbeddingConfig):
         self.embedding_config = embedding_config
-        self.client:Optional[HuggingFaceEndpointEmbeddings] = None
+        self.embeddings:Optional[HuggingFaceEndpointEmbeddings] = None
 
 
     def _get_url(self):
@@ -24,7 +24,7 @@ class EmbeddingClientManager:
 
     def init(self):
 
-        self.client=HuggingFaceEndpointEmbeddings(model=self._get_url())
+        self.embeddings=HuggingFaceEndpointEmbeddings(model=self._get_url())
 
 
 embedding_client_manager = EmbeddingClientManager(app_config.embedding)
@@ -33,7 +33,7 @@ embedding_client_manager = EmbeddingClientManager(app_config.embedding)
 if __name__ == "__main__":
     embedding_client_manager.init()
 
-    embeddings=embedding_client_manager.client
+    embeddings=embedding_client_manager.embeddings
 
     async def test():
         # 测试嵌入向量生成

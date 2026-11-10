@@ -41,6 +41,7 @@ class MySQLClientManager:
         await self.engine.dispose()
 
 
+meta_mysql_client_manager=MySQLClientManager(app_config.db_meta)
 dw_mysql_client_manager = MySQLClientManager(app_config.db_dw)
 
 
@@ -52,7 +53,7 @@ if __name__ == "__main__":
     async def test():
         async with dw_mysql_client_manager.session_factory() as session:
             
-            sql="SELECT * FROM fact_order LIMIT 10;"
+            sql="show columns from dim_date"
 
             result=await session.execute(text(sql))
 
